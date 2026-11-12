@@ -1088,19 +1088,20 @@ export function JobDetail() {
 
   useEffect(() => {
     async function loadJob() {
-      if (!id) return;
+      if (!id || !company) return;
       const { data } = await supabase
         .from('jobs')
         .select(
           'id, slug, title, description, status, created_at, highlight_question, highlight_type, requirements, show_benefits',
         )
         .eq('id', id)
+        .eq('company_id', company.id)
         .maybeSingle<Job>();
       setJob(data);
       setJobLoading(false);
     }
     void loadJob();
-  }, [id]);
+  }, [id, company]);
 
   // Volta ao topo a cada troca de candidato. Sem animacao de proposito: isso e
   // troca de conteudo, nao navegacao, e rolagem suave aqui vira atraso entre o

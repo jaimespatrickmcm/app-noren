@@ -25,10 +25,15 @@ export function Jobs() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!company) return;
+    const companyId = company.id;
     async function load() {
+      // Filtro por empresa obrigatório: vaga ativa é pública (policy jobs_public_active_read_authed), então sem
+      // ele a lista mostrava as vagas ativas de outras empresas.
       const { data: jobsData } = await supabase
         .from('jobs')
         .select('id, slug, title, status, created_at, applications(count)')
+        .eq('company_id', companyId)
         .order('created_at', { ascending: false });
 
       if (jobsData) {
@@ -46,7 +51,7 @@ export function Jobs() {
       setLoading(false);
     }
     void load();
-  }, []);
+  }, [company]);
 
   return (
     <PageShell

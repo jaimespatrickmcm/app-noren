@@ -22,9 +22,10 @@ export function Dashboard() {
 
   useEffect(() => {
     if (!company) return;
+    const companyId = company.id;
     async function load() {
       const [jobs, applications, triagem] = await Promise.all([
-        supabase.from('jobs').select('*', { count: 'exact', head: true }),
+        supabase.from('jobs').select('*', { count: 'exact', head: true }).eq('company_id', companyId),
         supabase.from('applications').select('*', { count: 'exact', head: true }),
         supabase
           .from('applications')
