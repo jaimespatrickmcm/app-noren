@@ -49,7 +49,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   async function signOut() {
-    const { error } = await supabase.auth.signOut();
+    // Sai só deste aparelho. O padrão do Supabase (global) encerra a sessão da conta em todos os
+    // aparelhos, e quem estava logado em outro lugar via a IA falhar com erro de JWT (12/11/2026).
+    const { error } = await supabase.auth.signOut({ scope: 'local' });
     if (error) throw error;
   }
 
