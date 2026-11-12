@@ -80,15 +80,18 @@ export function Questions() {
   const [modal, setModal] = useState<ModalState>(null);
 
   useEffect(() => {
+    if (!company) return;
+    const companyId = company.id;
     async function loadJobs() {
       const { data } = await supabase
         .from('jobs')
         .select('id, title')
+        .eq('company_id', companyId)
         .order('created_at', { ascending: false });
       setJobs((data as JobLite[] | null) ?? []);
     }
     void loadJobs();
-  }, []);
+  }, [company]);
 
   const questionsByKind = useMemo(
     () =>
