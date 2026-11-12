@@ -43,6 +43,9 @@ password_requirements = "lower_upper_letters_digits"
 
 [auth.email]
 enable_signup = true
+# Código de login com 6 dígitos, igual à tela (src/pages/VerifyOtp.tsx, OTP_LENGTH). Sem esta linha, o
+# `supabase config push` volta ao padrão e a tela e o e-mail podem divergir (login quebrado em 12/11/2026).
+otp_length = 6
 double_confirm_changes = true
 enable_confirmations = false
 
