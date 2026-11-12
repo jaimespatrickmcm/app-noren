@@ -53,7 +53,7 @@ if (supabaseConfigMissing) {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <RouterProvider router={router} />
-          <Toaster richColors position="top-right" />
+          <Toaster richColors position="top-center" />
         </AuthProvider>
       </QueryClientProvider>
     </React.StrictMode>,
