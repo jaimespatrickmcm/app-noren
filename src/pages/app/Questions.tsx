@@ -194,7 +194,7 @@ function UnifiedCompanyPanel({
           Perguntas sobre o candidato (história e triagem), cultura (fit com o DNA), curiosidade e
           raciocínio lógico. Geradas juntas e padronizadas pra todo candidato.
         </p>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex flex-wrap items-center gap-2 sm:shrink-0">
           <button
             type="button"
             onClick={onManual}
