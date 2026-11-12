@@ -1377,7 +1377,9 @@ export function JobDetail() {
             )}
           </div>
 
-          <TabsContent value="pipeline" className="mt-0 lg:flex lg:min-h-0 lg:flex-1 lg:flex-col">
+          {/* lg:flex só na aba ativa: o Radix esconde a aba inativa com o atributo hidden, e um lg:flex
+              solto vence o hidden, deixando a aba vazia ocupar metade da tela acima de "Sobre a vaga". */}
+          <TabsContent value="pipeline" className="mt-0 lg:min-h-0 lg:flex-1 lg:flex-col lg:data-[state=active]:flex">
             {applications.length === 0 ? (
               <EmptyState
                 icon={<Users className="h-7 w-7" strokeWidth={1.75} />}
@@ -1411,7 +1413,7 @@ export function JobDetail() {
                   {/* overscroll-contain: chegar no fim da lista nao "vaza" o
                       scroll pra pagina atras. A borda da direita e a separacao
                       visual entre os dois lados. */}
-                  <div className="flex flex-col gap-2 lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:border-r lg:border-line-soft lg:pb-4 lg:pr-4">
+                  <div className="flex flex-col gap-2 lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:border-r lg:border-line-soft lg:pb-24 lg:pr-4">
                     {filtered.length === 0 ? (
                       <div className="surface-card px-5 py-8 text-center">
                         <p className="text-footnote text-ink-muted">
@@ -1455,7 +1457,7 @@ export function JobDetail() {
                     tabIndex={0}
                     role="region"
                     aria-label="Detalhe do candidato"
-                    className="lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:pb-4 lg:pl-5"
+                    className="lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:pb-24 lg:pl-5"
                   >
                     {selected ? (
                       <CandidateDetail
@@ -1493,7 +1495,7 @@ export function JobDetail() {
 
           <TabsContent
             value="vaga"
-            className="mt-0 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-contain lg:pb-4 lg:pr-1"
+            className="mt-0 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-contain lg:pb-24 lg:pr-1"
           >
             <DescriptionPanel
               job={job}
@@ -1769,7 +1771,7 @@ function DescriptionPanel({
 
   return (
     <div className="surface-card mb-4 overflow-hidden">
-      <div className="flex items-start justify-between gap-4 border-b border-line-soft bg-canvas px-5 py-4 sm:px-6">
+      <div className="flex flex-col gap-3 border-b border-line-soft bg-canvas px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4 sm:px-6">
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -2016,7 +2018,7 @@ function RequirementsPanel({
 
   return (
     <div className="surface-card mb-4 overflow-hidden">
-      <div className="flex items-start justify-between gap-4 border-b border-line-soft bg-canvas px-5 py-4 sm:px-6">
+      <div className="flex flex-col gap-3 border-b border-line-soft bg-canvas px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4 sm:px-6">
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}

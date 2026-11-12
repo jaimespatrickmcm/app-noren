@@ -189,7 +189,7 @@ function UnifiedCompanyPanel({
 
   return (
     <div>
-      <div className="flex items-start justify-between gap-4 mb-5">
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <p className="text-callout text-ink-muted leading-relaxed max-w-md">
           Perguntas sobre o candidato (história e triagem), cultura (fit com o DNA), curiosidade e
           raciocínio lógico. Geradas juntas e padronizadas pra todo candidato.
@@ -198,7 +198,7 @@ function UnifiedCompanyPanel({
           <button
             type="button"
             onClick={onManual}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full border border-line-soft bg-white text-footnote font-semibold text-ink hover:border-line transition-colors"
+            className="inline-flex shrink-0 items-center whitespace-nowrap gap-1.5 px-3 py-2 rounded-full border border-line-soft bg-white text-footnote font-semibold text-ink hover:border-line transition-colors"
           >
             <Plus className="h-3.5 w-3.5" />
             Adicionar manual

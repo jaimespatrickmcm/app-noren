@@ -136,12 +136,12 @@ export function BottomNav() {
         >
           <Link
             to="/app"
-            className="ml-1.5 mr-2.5 font-satoshi text-title-3 font-bold text-ink"
+            className="ml-1.5 mr-2.5 hidden font-satoshi text-title-3 font-bold text-ink sm:inline"
             aria-label="Noren, ir para o início"
           >
             Noren
           </Link>
-          <div className="mr-1.5 h-5 w-px bg-line-soft" aria-hidden />
+          <div className="mr-1.5 hidden h-5 w-px bg-line-soft sm:block" aria-hidden />
 
           {PRIMARY.filter((item) => item.key !== 'time' || role === 'owner').map((item) => {
             const Icon = item.icon;
@@ -152,15 +152,15 @@ export function BottomNav() {
                 to={item.to}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'inline-flex h-11 items-center gap-2 rounded-full px-3.5 text-footnote font-semibold',
+                  'inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full px-3 text-footnote font-semibold sm:px-3.5',
                   'transition-colors duration-200 ease-standard',
                   active ? 'bg-ink text-white' : 'text-ink-muted hover:bg-canvas hover:text-ink',
                 )}
               >
                 <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
-                {/* No mobile so o item ativo mostra rotulo: mantem o alvo de
-                    toque grande sem virar uma fileira de icones mudos. */}
-                <span className={cn(active ? 'inline' : 'hidden', 'sm:inline')}>{item.label}</span>
+                {/* No celular a barra mostra só ícones (o item ativo fica escuro) para caber em 390px;
+                    o rótulo continua para leitor de tela. A partir de sm, rótulo visível. */}
+                <span className="sr-only sm:not-sr-only">{item.label}</span>
               </Link>
             );
           })}
