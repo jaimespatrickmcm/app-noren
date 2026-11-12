@@ -9,6 +9,9 @@ import {
 } from '@/components/ui/input-otp';
 import { supabase } from '@/lib/supabase';
 
+// Tamanho do código do e-mail de login. Tem de ser igual ao otp_length do Auth (supabase/config.toml, [auth.email]).
+export const OTP_LENGTH = 6;
+
 const RESEND_COOLDOWN_SECONDS = 60;
 
 // Module-level Set: sobrevive a StrictMode double-mount (refs por-instância
@@ -45,7 +48,7 @@ export function VerifyOtp() {
   }, [cooldown]);
 
   useEffect(() => {
-    if (!email || code.length !== 8 || verifying) return;
+    if (!email || code.length !== OTP_LENGTH || verifying) return;
     const key = `${email}:${code}`;
     if (attemptedTokens.has(key)) return;
     attemptedTokens.add(key);
@@ -143,31 +146,29 @@ export function VerifyOtp() {
               Confirme seu acesso
             </h1>
             <p className="text-callout text-ink-muted leading-relaxed">
-              Mandamos um código de 8 dígitos pra{' '}
+              Mandamos um código de {OTP_LENGTH} dígitos pra{' '}
               <strong className="text-ink">{email}</strong>. Cole ou digite aqui.
             </p>
           </div>
 
           <div className="flex flex-col items-center gap-6">
             <InputOTP
-              maxLength={8}
+              maxLength={OTP_LENGTH}
               value={code}
               onChange={setCode}
               disabled={verifying}
               autoFocus
             >
               <InputOTPGroup>
-                <InputOTPSlot index={0} className="h-12 w-11 rounded-tile text-xl font-bold" />
-                <InputOTPSlot index={1} className="h-12 w-11 rounded-tile text-xl font-bold" />
-                <InputOTPSlot index={2} className="h-12 w-11 rounded-tile text-xl font-bold" />
-                <InputOTPSlot index={3} className="h-12 w-11 rounded-tile text-xl font-bold" />
+                {[0, 1, 2].map((i) => (
+                  <InputOTPSlot key={i} index={i} className="h-12 w-11 rounded-tile text-xl font-bold" />
+                ))}
               </InputOTPGroup>
               <InputOTPSeparator />
               <InputOTPGroup>
-                <InputOTPSlot index={4} className="h-12 w-11 rounded-tile text-xl font-bold" />
-                <InputOTPSlot index={5} className="h-12 w-11 rounded-tile text-xl font-bold" />
-                <InputOTPSlot index={6} className="h-12 w-11 rounded-tile text-xl font-bold" />
-                <InputOTPSlot index={7} className="h-12 w-11 rounded-tile text-xl font-bold" />
+                {[3, 4, 5].map((i) => (
+                  <InputOTPSlot key={i} index={i} className="h-12 w-11 rounded-tile text-xl font-bold" />
+                ))}
               </InputOTPGroup>
             </InputOTP>
 
